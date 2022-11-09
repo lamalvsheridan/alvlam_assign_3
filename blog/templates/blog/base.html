@@ -24,9 +24,17 @@
   </nav>
 
   <main id="main-content">
-    {% block main %}
-      <!-- Content for the main block will be rendered here -->
-    {% endblock %}
+    <div>
+      {% block main %}
+        <!-- Content for the main block will be rendered here -->
+      {% endblock %}
+    </div>
+
+    <aside>
+      {% block aside %}
+        <!-- Content for the aside block will be rendered here -->
+      {% endblock %}
+    </aside>
   </main>
 
   <!-- The footer -->

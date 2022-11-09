@@ -1,7 +1,26 @@
 {% extends "blog/base.html" %}
 
 {% block main %}
-<p>Welcome to the home page of my blog!</p>
+<section class="latest-article-preview">
 
-{{ latest_posts }}
+{% for post in latest_posts %}
+<article>
+  <h2>{{ post.title }}</h2>
+  <em>{{ post.published|timesince }} ago</em>
+  {{ post.content|linebreaks }}
+</article>
+{% endfor %}
+
+</section>
+{% endblock %}
+
+{% block aside %}
+<section id="topics-list">
+  <h3>Topics</h3>
+  <ul>
+    {% for topic in topics %}
+      <li>{{ topic }} ({{ topic.blog_posts__count}})</li>
+    {% endfor %}
+  </ul>
+</section>
 {% endblock %}

@@ -1,7 +1,7 @@
 from django.conf import settings  # Imports Django's loaded settings
 from django.db import models
 
-# Create your models here.
+
 class Topic(models.Model):
     """
     Represents a topic to organize blog posts
@@ -89,7 +89,7 @@ class Post(models.Model):
 
     # A timestamp at which blog went from draft to published
     published = models.DateTimeField(
-        help_text='The date & time this article was published'
+        help_text='The date & time this article was published',
     )
 
     # Label used to form URL; Prepopulate with value in 'title' (required)
@@ -102,7 +102,7 @@ class Post(models.Model):
     # Each post can have multiple topics
     topic = models.ManyToManyField(
         Topic,
-        related_name='blog_posts'
+        related_name='blog_posts',
     )
 
     # Marks deleted posts
