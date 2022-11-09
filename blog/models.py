@@ -26,6 +26,21 @@ class Topic(models.Model):
     def __str__(self):
         return self.name
 
+
+class PostManager(models.Manager):
+    def get_queryset(self):
+        queryset = super().get_queryset()  # Get the initial queryset
+        return queryset.exclude(deleted=True)  # Exclude deleted records
+
+
+class PostQuerySet(models.QuerySet):
+    def published(self):
+        return self.filter(status=self.model.PUBLISHED)
+
+    def drafts(self):
+        return self.filter(status=self.model.DRAFT)
+
+
 class Post(models.Model):
     """
     Represents a blog post
@@ -85,13 +100,27 @@ class Post(models.Model):
     )
 
     # Each post can have multiple topics
-    topic = models.ManyToManyField(Topic)
+    topic = models.ManyToManyField(
+        Topic,
+        related_name='blog_posts'
+    )
+
+    # Marks deleted posts
+    deleted = models.BooleanField()
+
+    objects = PostQuerySet.as_manager()
 
     class Meta:
         ordering = ['-created']
 
     def __str__(self):
         return self.title
+
+    def publish(self):
+        """Publishes this post"""
+        self.status = self.PUBLISHED
+        self.published = timezone.now()  # The current datetime with timezone
+
 
 class Comment(models.Model):
     """
