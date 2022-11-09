@@ -12,6 +12,10 @@ body {
   padding: 1rem;
 }
 
+h3 {
+  border-bottom: 1px solid #eee;
+}
+
 /*
  * Style the <a> tags. Have a consistent colour for both visited
  * and unvisited links. Show underline on hover only.
